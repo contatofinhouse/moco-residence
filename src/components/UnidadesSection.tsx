@@ -13,6 +13,12 @@ import apto2_3 from "@/assets/apto-2-3.jpg";
 import apto3 from "@/assets/apto-3.jpg";
 import apto3_2 from "@/assets/apto-3-2.jpg";
 import apto3_3 from "@/assets/apto-3-3.jpg";
+import apto4 from "@/assets/apto-4.jpg";
+import apto4_2 from "@/assets/apto-4-2.jpg";
+import apto4_3 from "@/assets/apto-4-3.jpg";
+import apto5 from "@/assets/apto-5.jpg";
+import apto5_2 from "@/assets/apto-5-2.jpg";
+import apto5_3 from "@/assets/apto-5-3.jpg";
 
 interface Unidade {
   id: number;
@@ -105,6 +111,57 @@ const unidades: Unidade[] = [
     ],
     entrega: "Março 2025",
     andar: "11° e 12°"
+  },
+  {
+    id: 4,
+    nome: "Studio Moderno",
+    imagens: [apto4, apto4_2, apto4_3],
+    preco: "R$ 620.000",
+    quartos: 1,
+    banheiros: 1,
+    area: "45m²",
+    descricao: "Studio compacto e funcional, ideal para jovens profissionais. Design inteligente que otimiza cada espaço.",
+    descricaoCompleta: "Studio Moderno pensado para o estilo de vida urbano contemporâneo. Ambiente integrado com cozinha americana compacta, área de trabalho embutida e soluções inteligentes de armazenamento. Banheiro completo com acabamentos de qualidade e área de serviço integrada. Perfeito para quem busca praticidade e localização privilegiada com investimento acessível.",
+    status: "Disponível",
+    caracteristicas: [
+      "Ambiente totalmente integrado",
+      "Cozinha americana compacta",
+      "Área de trabalho embutida",
+      "Soluções inteligentes de storage",
+      "Banheiro completo",
+      "Área de serviço integrada",
+      "Piso laminado de madeira",
+      "1 vaga de garagem",
+      "Ideal para investimento"
+    ],
+    entrega: "Outubro 2024",
+    andar: "3° ao 8°"
+  },
+  {
+    id: 5,
+    nome: "Apartamento Luxo",
+    imagens: [apto5, apto5_2, apto5_3],
+    preco: "R$ 1.050.000",
+    quartos: 3,
+    banheiros: 3,
+    area: "120m²",
+    descricao: "Apartamento de alto padrão com 3 suítes, varanda gourmet ampla e acabamentos nobres em mármore.",
+    descricaoCompleta: "Apartamento Luxo com padrão diferenciado e acabamentos nobres. Possui 3 suítes completas, sendo a master com banheira de hidromassagem e closet personalizado. Sala ampla com pé-direito duplo, cozinha gourmet com ilha em mármore Carrara e adega climatizada. Varanda gourmet de 15m² com churrasqueira e vista privilegiada. Automação residencial completa e sistema de som ambiente.",
+    status: "Disponível",
+    caracteristicas: [
+      "3 suítes completas",
+      "Pé-direito duplo na sala",
+      "Banheira de hidromassagem",
+      "Closet personalizado",
+      "Cozinha gourmet com ilha",
+      "Adega climatizada",
+      "Varanda gourmet 15m²",
+      "Automação residencial",
+      "Sistema de som ambiente",
+      "2 vagas de garagem"
+    ],
+    entrega: "Fevereiro 2025",
+    andar: "8° ao 11°"
   }
 ];
 
