@@ -56,6 +56,11 @@ const Hero = () => {
             <Button 
               variant="outline" 
               size="lg"
+              onClick={() => {
+                document.getElementById('unidades')?.scrollIntoView({ 
+                  behavior: 'smooth' 
+                });
+              }}
               className="border-white text-white hover:bg-white hover:text-luxury-navy px-8 py-4 text-lg"
             >
               Ver Unidades
