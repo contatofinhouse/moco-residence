@@ -8,9 +8,12 @@ import {
   Shield, 
   Users,
   MessageCircle,
-  MapPin 
+  MapPin
 } from "lucide-react";
-import amenidadesImage from "@/assets/amenidades.jpg";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import condominio1 from "@/assets/condominio-1.jpg";
+import condominio2 from "@/assets/condominio-2.jpg";
+import condominio3 from "@/assets/condominio-3.jpg";
 
 const amenidades = [
   { icon: Waves, nome: "Piscina Adulto e Infantil", descricao: "Área aquática completa" },
@@ -45,15 +48,47 @@ const CondominioSection = () => {
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Image */}
+          {/* Image Slideshow */}
           <div className="relative">
-            <img 
-              src={amenidadesImage} 
-              alt="Amenidades do condomínio"
-              className="rounded-2xl w-full h-96 object-cover"
-              style={{ boxShadow: "var(--shadow-luxury)" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-luxury-navy/20 to-transparent rounded-2xl" />
+            <Carousel className="w-full">
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="relative">
+                    <img 
+                      src={condominio1} 
+                      alt="Fachada do Residencial Premium"
+                      className="rounded-2xl w-full h-96 object-cover"
+                      style={{ boxShadow: "var(--shadow-luxury)" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-navy/20 to-transparent rounded-2xl" />
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="relative">
+                    <img 
+                      src={condominio2} 
+                      alt="Área de lazer com piscina"
+                      className="rounded-2xl w-full h-96 object-cover"
+                      style={{ boxShadow: "var(--shadow-luxury)" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-navy/20 to-transparent rounded-2xl" />
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="relative">
+                    <img 
+                      src={condominio3} 
+                      alt="Jardim interno do condomínio"
+                      className="rounded-2xl w-full h-96 object-cover"
+                      style={{ boxShadow: "var(--shadow-luxury)" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-navy/20 to-transparent rounded-2xl" />
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
           </div>
 
           {/* Description */}
