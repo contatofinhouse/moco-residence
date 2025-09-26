@@ -1,4 +1,4 @@
-import { Building2, Phone } from "lucide-react";
+import { Building2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
               onClick={handleWhatsAppContact}
               className="flex items-center space-x-2"
             >
-              <Phone className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" />
               <span>Contato</span>
             </Button>
           </div>
