@@ -11,28 +11,27 @@ import { toast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+
 const Admin = () => {
   const navigate = useNavigate();
   const { unidades, updateUnidade, condominioInfo, updateCondominioInfo } = useData();
   const [selectedUnidade, setSelectedUnidade] = useState(unidades[0]?.id);
+  const [authorized, setAuthorized] = useState(false);
+  const [password, setPassword] = useState("");
 
   const currentUnidade = unidades.find(u => u.id === selectedUnidade);
 
+  // ---------- FUNÇÕES DE ADMIN ----------
   const handleUnidadeUpdate = (field: string, value: any) => {
     if (!selectedUnidade) return;
     updateUnidade(selectedUnidade, { [field]: value });
-    toast({
-      title: "Atualizado!",
-      description: "Informações da unidade atualizadas com sucesso.",
-    });
+    toast({ title: "Atualizado!", description: "Informações da unidade atualizadas com sucesso." });
   };
 
   const handleCondominioUpdate = (field: string, value: string) => {
     updateCondominioInfo({ [field]: value });
-    toast({
-      title: "Atualizado!",
-      description: "Informações do condomínio atualizadas com sucesso.",
-    });
+    toast({ title: "Atualizado!", description: "Informações do condomínio atualizadas com sucesso." });
   };
 
   const handleCaracteristicaChange = (index: number, value: string) => {
@@ -54,14 +53,37 @@ const Admin = () => {
     updateUnidade(selectedUnidade, { caracteristicas: newCaracteristicas });
   };
 
+  // ---------- BLOQUEIO POR SENHA ----------
+  if (!authorized) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-luxury-light">
+        <div className="p-6 border rounded shadow bg-white">
+          <h2 className="mb-4 text-xl font-bold">Senha de acesso ao Admin</h2>
+          <Input
+            type="password"
+            placeholder="Digite a senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-4"
+          />
+          <Button
+            onClick={() => {
+              if (password === ADMIN_PASSWORD) setAuthorized(true);
+              else alert("Senha incorreta!");
+            }}
+          >
+            Entrar
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // ---------- PAINEL ADMIN ----------
   return (
     <div className="min-h-screen bg-luxury-light">
       <div className="container mx-auto px-6 py-8">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate("/")}
-          className="mb-6"
-        >
+        <Button variant="ghost" onClick={() => navigate("/")} className="mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Voltar para o site
         </Button>
@@ -81,8 +103,8 @@ const Admin = () => {
                 <CardTitle>Selecione a Unidade</CardTitle>
               </CardHeader>
               <CardContent>
-                <Select 
-                  value={selectedUnidade?.toString()} 
+                <Select
+                  value={selectedUnidade?.toString()}
                   onValueChange={(value) => setSelectedUnidade(Number(value))}
                 >
                   <SelectTrigger>
@@ -108,7 +130,7 @@ const Admin = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="nome">Nome</Label>
-                      <Input 
+                      <Input
                         id="nome"
                         value={currentUnidade.nome}
                         onChange={(e) => handleUnidadeUpdate("nome", e.target.value)}
@@ -116,7 +138,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="preco">Preço</Label>
-                      <Input 
+                      <Input
                         id="preco"
                         value={currentUnidade.preco}
                         onChange={(e) => handleUnidadeUpdate("preco", e.target.value)}
@@ -124,7 +146,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="quartos">Quartos</Label>
-                      <Input 
+                      <Input
                         id="quartos"
                         type="number"
                         value={currentUnidade.quartos}
@@ -133,7 +155,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="banheiros">Banheiros</Label>
-                      <Input 
+                      <Input
                         id="banheiros"
                         type="number"
                         value={currentUnidade.banheiros}
@@ -142,7 +164,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="area">Área</Label>
-                      <Input 
+                      <Input
                         id="area"
                         value={currentUnidade.area}
                         onChange={(e) => handleUnidadeUpdate("area", e.target.value)}
@@ -150,7 +172,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="status">Status</Label>
-                      <Select 
+                      <Select
                         value={currentUnidade.status}
                         onValueChange={(value) => handleUnidadeUpdate("status", value)}
                       >
@@ -165,7 +187,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="entrega">Entrega</Label>
-                      <Input 
+                      <Input
                         id="entrega"
                         value={currentUnidade.entrega}
                         onChange={(e) => handleUnidadeUpdate("entrega", e.target.value)}
@@ -173,7 +195,7 @@ const Admin = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="andar">Andar</Label>
-                      <Input 
+                      <Input
                         id="andar"
                         value={currentUnidade.andar}
                         onChange={(e) => handleUnidadeUpdate("andar", e.target.value)}
@@ -183,7 +205,7 @@ const Admin = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="descricao">Descrição Curta</Label>
-                    <Textarea 
+                    <Textarea
                       id="descricao"
                       value={currentUnidade.descricao}
                       onChange={(e) => handleUnidadeUpdate("descricao", e.target.value)}
@@ -193,7 +215,7 @@ const Admin = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="descricaoCompleta">Descrição Completa</Label>
-                    <Textarea 
+                    <Textarea
                       id="descricaoCompleta"
                       value={currentUnidade.descricaoCompleta}
                       onChange={(e) => handleUnidadeUpdate("descricaoCompleta", e.target.value)}
@@ -205,14 +227,11 @@ const Admin = () => {
                     <Label>Características</Label>
                     {currentUnidade.caracteristicas.map((caracteristica, index) => (
                       <div key={index} className="flex gap-2">
-                        <Input 
+                        <Input
                           value={caracteristica}
                           onChange={(e) => handleCaracteristicaChange(index, e.target.value)}
                         />
-                        <Button 
-                          variant="destructive" 
-                          onClick={() => removeCaracteristica(index)}
-                        >
+                        <Button variant="destructive" onClick={() => removeCaracteristica(index)}>
                           Remover
                         </Button>
                       </div>
@@ -235,7 +254,7 @@ const Admin = () => {
               <CardContent className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="titulo">Título</Label>
-                  <Input 
+                  <Input
                     id="titulo"
                     value={condominioInfo.titulo}
                     onChange={(e) => handleCondominioUpdate("titulo", e.target.value)}
@@ -244,7 +263,7 @@ const Admin = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="subtitulo">Subtítulo</Label>
-                  <Input 
+                  <Input
                     id="subtitulo"
                     value={condominioInfo.subtitulo}
                     onChange={(e) => handleCondominioUpdate("subtitulo", e.target.value)}
@@ -253,7 +272,7 @@ const Admin = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="descricao1">Descrição 1</Label>
-                  <Textarea 
+                  <Textarea
                     id="descricao1"
                     value={condominioInfo.descricao1}
                     onChange={(e) => handleCondominioUpdate("descricao1", e.target.value)}
@@ -263,7 +282,7 @@ const Admin = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="descricao2">Descrição 2</Label>
-                  <Textarea 
+                  <Textarea
                     id="descricao2"
                     value={condominioInfo.descricao2}
                     onChange={(e) => handleCondominioUpdate("descricao2", e.target.value)}
@@ -273,7 +292,7 @@ const Admin = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="endereco">Endereço</Label>
-                  <Input 
+                  <Input
                     id="endereco"
                     value={condominioInfo.endereco}
                     onChange={(e) => handleCondominioUpdate("endereco", e.target.value)}
@@ -282,7 +301,7 @@ const Admin = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="telefone">Telefone (WhatsApp)</Label>
-                  <Input 
+                  <Input
                     id="telefone"
                     value={condominioInfo.telefone}
                     onChange={(e) => handleCondominioUpdate("telefone", e.target.value)}
@@ -299,3 +318,4 @@ const Admin = () => {
 };
 
 export default Admin;
+
