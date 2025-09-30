@@ -11,6 +11,7 @@ import {
   MapPin
 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useData } from "@/contexts/DataContext";
 import condominio1 from "@/assets/condominio-1.jpg";
 import condominio2 from "@/assets/condominio-2.jpg";
 import condominio3 from "@/assets/condominio-3.jpg";
@@ -25,8 +26,10 @@ const amenidades = [
 ];
 
 const CondominioSection = () => {
+  const { condominioInfo } = useData();
+
   const handleWhatsAppInfo = () => {
-    const phoneNumber = "5511999999999"; // Substitua pelo número real
+    const phoneNumber = condominioInfo.telefone;
     const message = "Olá! Gostaria de mais informações sobre o Residencial Premium e suas amenidades.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
@@ -38,7 +41,7 @@ const CondominioSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-luxury-navy mb-6">
-            O Condomínio
+            {condominioInfo.titulo}
           </h2>
           <p className="text-xl text-luxury-gray max-w-3xl mx-auto">
             Um conceito inovador em moradia que combina localização privilegiada, 
@@ -94,22 +97,18 @@ const CondominioSection = () => {
           {/* Description */}
           <div className="space-y-6">
             <h3 className="text-3xl font-bold text-luxury-navy">
-              Viva com Exclusividade
+              {condominioInfo.subtitulo}
             </h3>
             <p className="text-lg text-luxury-gray leading-relaxed">
-              O Residencial Premium foi projetado para oferecer o máximo em conforto e 
-              sofisticação. Localizado no coração da Vila Madalena, oferece fácil acesso 
-              aos principais pontos da cidade.
+              {condominioInfo.descricao1}
             </p>
             <p className="text-lg text-luxury-gray leading-relaxed">
-              Com apenas 48 unidades distribuídas em 12 andares, garantimos privacidade 
-              e exclusividade para nossos moradores. Cada detalhe foi pensado para 
-              proporcionar uma experiência única de moradia urbana.
+              {condominioInfo.descricao2}
             </p>
             
             <div className="flex items-center space-x-3 text-primary">
               <MapPin className="h-5 w-5" />
-              <span className="font-semibold">Rua Harmonia, 456 - Vila Madalena, São Paulo</span>
+              <span className="font-semibold">{condominioInfo.endereco}</span>
             </div>
             
             <Button 

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bed, Bath, Square, MessageCircle, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import UnidadeModal from "./UnidadeModal";
+import { useData, Unidade } from "@/contexts/DataContext";
 import apto1 from "@/assets/apto-1.jpg";
 import apto1_2 from "@/assets/apto-1-2.jpg";
 import apto1_3 from "@/assets/apto-1-3.jpg";
@@ -20,23 +21,7 @@ import apto5 from "@/assets/apto-5.jpg";
 import apto5_2 from "@/assets/apto-5-2.jpg";
 import apto5_3 from "@/assets/apto-5-3.jpg";
 
-interface Unidade {
-  id: number;
-  nome: string;
-  imagens: string[];
-  preco: string;
-  quartos: number;
-  banheiros: number;
-  area: string;
-  descricao: string;
-  descricaoCompleta: string;
-  status: "Disponível" | "Reservado";
-  caracteristicas: string[];
-  entrega: string;
-  andar: string;
-}
-
-const unidades: Unidade[] = [
+const defaultUnidades: Unidade[] = [
   {
     id: 1,
     nome: "Apartamento Garden",
@@ -166,11 +151,23 @@ const unidades: Unidade[] = [
 ];
 
 const UnidadesSection = () => {
+  const { unidades: contextUnidades } = useData();
   const [selectedUnidade, setSelectedUnidade] = useState<Unidade | null>(null);
   const [currentImages, setCurrentImages] = useState<{[key: number]: number}>({});
+  
+  const unidades = contextUnidades.length > 0 ? contextUnidades : defaultUnidades;
+
+  useEffect(() => {
+    if (contextUnidades.length === 0) {
+      localStorage.setItem("residencial_unidades", JSON.stringify(defaultUnidades));
+      window.location.reload();
+    }
+  }, [contextUnidades]);
+
+  const { condominioInfo } = useData();
 
   const handleWhatsAppVisita = (unidade: string) => {
-    const phoneNumber = "5511999999999";
+    const phoneNumber = condominioInfo.telefone;
     const message = `Olá! Gostaria de agendar uma visita para o ${unidade} no Residencial Premium.`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");

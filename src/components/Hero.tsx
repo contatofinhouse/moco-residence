@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Star } from "lucide-react";
+import { useData } from "@/contexts/DataContext";
 import heroImage from "@/assets/hero-condominio.jpg";
 
 const Hero = () => {
+  const { condominioInfo } = useData();
+
   const handleWhatsAppContact = () => {
-    const phoneNumber = "5511999999999"; // Substitua pelo número real
+    const phoneNumber = condominioInfo.telefone;
     const message = "Olá! Gostaria de agendar uma visita ao Residencial Premium.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
