@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { defaultUnidades } from "@/data/defaultUnidades";
 
 export interface Unidade {
   id: number;
@@ -48,7 +49,12 @@ const STORAGE_KEY_CONDOMINIO = "residencial_condominio";
 export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [unidades, setUnidades] = useState<Unidade[]>(() => {
     const stored = localStorage.getItem(STORAGE_KEY_UNIDADES);
-    return stored ? JSON.parse(stored) : [];
+    if (stored) {
+      return JSON.parse(stored);
+    }
+    // Initialize with default data on first load
+    localStorage.setItem(STORAGE_KEY_UNIDADES, JSON.stringify(defaultUnidades));
+    return defaultUnidades;
   });
 
   const [condominioInfo, setCondominioInfo] = useState<CondominioInfo>(() => {
