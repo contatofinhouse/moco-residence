@@ -5,6 +5,7 @@ export interface Unidade {
   id: number;
   nome: string;
   imagens: string[];
+  video?: string;
   preco: string;
   quartos: number;
   banheiros: number;

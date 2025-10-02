@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Upload, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD?.trim();
@@ -57,6 +57,34 @@ const Admin = () => {
     if (!currentUnidade) return;
     const newCaracteristicas = currentUnidade.caracteristicas.filter((_, i) => i !== index);
     updateUnidade(selectedUnidade, { caracteristicas: newCaracteristicas });
+  };
+
+  const handleImageUpload = (index: number, file: File) => {
+    if (!currentUnidade) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newImagens = [...currentUnidade.imagens];
+      newImagens[index] = reader.result as string;
+      updateUnidade(selectedUnidade, { imagens: newImagens });
+      toast({ title: "Imagem atualizada!", description: `Imagem ${index + 1} foi substituída com sucesso.` });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleVideoUpload = (file: File) => {
+    if (!currentUnidade) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      updateUnidade(selectedUnidade, { video: reader.result as string });
+      toast({ title: "Vídeo atualizado!", description: "Vídeo foi adicionado com sucesso." });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeVideo = () => {
+    if (!currentUnidade) return;
+    updateUnidade(selectedUnidade, { video: undefined });
+    toast({ title: "Vídeo removido!", description: "Vídeo foi removido com sucesso." });
   };
 
   // ---------- BLOQUEIO POR SENHA ----------
@@ -197,6 +225,58 @@ const Admin = () => {
                       </div>
                     ))}
                     <Button onClick={addCaracteristica} variant="outline">Adicionar Característica</Button>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Imagens da Unidade</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {currentUnidade.imagens.map((imagem, index) => (
+                        <div key={index} className="space-y-2">
+                          <Label className="text-sm text-muted-foreground">Imagem {index + 1}</Label>
+                          <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                            <img src={imagem} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+                          </div>
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleImageUpload(index, file);
+                            }}
+                            className="cursor-pointer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Vídeo da Unidade (Opcional)</Label>
+                    {currentUnidade.video ? (
+                      <div className="space-y-2">
+                        <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                          <video src={currentUnidade.video} controls className="w-full h-full object-cover" />
+                        </div>
+                        <Button variant="destructive" onClick={removeVideo} className="w-full">
+                          <X className="mr-2 h-4 w-4" />
+                          Remover Vídeo
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="border-2 border-dashed rounded-lg p-6 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                        <Input
+                          type="file"
+                          accept="video/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleVideoUpload(file);
+                          }}
+                          className="cursor-pointer"
+                        />
+                        <p className="text-sm text-muted-foreground mt-2">Selecione um vídeo para fazer upload</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
