@@ -2,24 +2,39 @@ import { Unidade } from "@/contexts/DataContext";
 import apto1 from "@/assets/apto-1.jpg";
 import apto1_2 from "@/assets/apto-1-2.jpg";
 import apto1_3 from "@/assets/apto-1-3.jpg";
+import apto1_4 from "@/assets/apto-1-4.jpg";
+import apto1_5 from "@/assets/apto-1-5.jpg";
+import apto1_6 from "@/assets/apto-1-6.jpg";
 import apto2 from "@/assets/apto-2.jpg";
 import apto2_2 from "@/assets/apto-2-2.jpg";
 import apto2_3 from "@/assets/apto-2-3.jpg";
+import apto2_4 from "@/assets/apto-2-4.jpg";
+import apto2_5 from "@/assets/apto-2-5.jpg";
+import apto2_6 from "@/assets/apto-2-6.jpg";
 import apto3 from "@/assets/apto-3.jpg";
 import apto3_2 from "@/assets/apto-3-2.jpg";
 import apto3_3 from "@/assets/apto-3-3.jpg";
+import apto3_4 from "@/assets/apto-3-4.jpg";
+import apto3_5 from "@/assets/apto-3-5.jpg";
+import apto3_6 from "@/assets/apto-3-6.jpg";
 import apto4 from "@/assets/apto-4.jpg";
 import apto4_2 from "@/assets/apto-4-2.jpg";
 import apto4_3 from "@/assets/apto-4-3.jpg";
+import apto4_4 from "@/assets/apto-4-4.jpg";
+import apto4_5 from "@/assets/apto-4-5.jpg";
+import apto4_6 from "@/assets/apto-4-6.jpg";
 import apto5 from "@/assets/apto-5.jpg";
 import apto5_2 from "@/assets/apto-5-2.jpg";
 import apto5_3 from "@/assets/apto-5-3.jpg";
+import apto5_4 from "@/assets/apto-5-4.jpg";
+import apto5_5 from "@/assets/apto-5-5.jpg";
+import apto5_6 from "@/assets/apto-5-6.jpg";
 
 export const defaultUnidades: Unidade[] = [
   {
     id: 1,
     nome: "Apartamento Garden",
-    imagens: [apto1, apto1_2, apto1_3],
+    imagens: [apto1, apto1_2, apto1_3, apto1_4, apto1_5, apto1_6],
     preco: "R$ 850.000",
     quartos: 3,
     banheiros: 2,
@@ -43,7 +58,7 @@ export const defaultUnidades: Unidade[] = [
   {
     id: 2,
     nome: "Apartamento Premium",
-    imagens: [apto2, apto2_2, apto2_3],
+    imagens: [apto2, apto2_2, apto2_3, apto2_4, apto2_5, apto2_6],
     preco: "R$ 920.000",
     quartos: 3,
     banheiros: 2,
@@ -68,7 +83,7 @@ export const defaultUnidades: Unidade[] = [
   {
     id: 3,
     nome: "Cobertura Duplex",
-    imagens: [apto3, apto3_2, apto3_3],
+    imagens: [apto3, apto3_2, apto3_3, apto3_4, apto3_5, apto3_6],
     preco: "R$ 1.200.000",
     quartos: 4,
     banheiros: 3,
@@ -94,7 +109,7 @@ export const defaultUnidades: Unidade[] = [
   {
     id: 4,
     nome: "Studio Moderno",
-    imagens: [apto4, apto4_2, apto4_3],
+    imagens: [apto4, apto4_2, apto4_3, apto4_4, apto4_5, apto4_6],
     preco: "R$ 620.000",
     quartos: 1,
     banheiros: 1,
@@ -119,7 +134,7 @@ export const defaultUnidades: Unidade[] = [
   {
     id: 5,
     nome: "Apartamento Luxo",
-    imagens: [apto5, apto5_2, apto5_3],
+    imagens: [apto5, apto5_2, apto5_3, apto5_4, apto5_5, apto5_6],
     preco: "R$ 1.050.000",
     quartos: 3,
     banheiros: 3,

@@ -229,7 +229,7 @@ const Admin = () => {
 
                   <div className="space-y-4">
                     <Label>Imagens da Unidade</Label>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {currentUnidade.imagens.map((imagem, index) => (
                         <div key={index} className="space-y-2">
                           <Label className="text-sm text-muted-foreground">Imagem {index + 1}</Label>
